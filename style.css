@@ -1,0 +1,234 @@
+:root {
+  --bg-dark: #121212;
+  --bg-card: #1e1e1e;
+  --accent: #00b894;
+  --accent-light: #55efc4;
+  --text-main: #eceff4;
+  --text-secondary: #b2bec3;
+  --border: #2d3436;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-main);
+  display: flex;
+  height: 100vh;
+}
+
+nav {
+  width: 200px;
+  background: var(--bg-card);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 15px;
+  border-right: 1px solid var(--border);
+}
+
+nav h1 {
+  font-size: 1.4rem;
+  text-align: center;
+  color: var(--accent);
+}
+
+.luck-test-form input,
+.luck-test-form select,
+.luck-test-form button {
+  margin-bottom: 12px;
+  width: 100%;
+  padding: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-main);
+  font-size: 1rem;
+}
+
+.luck-test-form input:invalid,
+.luck-test-form select:invalid {
+  border-color: #ff7675;
+  box-shadow: 0 0 4px rgba(255, 118, 117, 0.3);
+}
+
+.luck-test-form button {
+  background: var(--accent);
+  color: var(--bg-dark);
+  font-weight: 500;
+  margin-top: 20px;
+  transition: background 0.2s;
+}
+
+.luck-test-form button:hover {
+  background: var(--accent-light);
+}
+
+.luck-test-result {
+  background: rgba(0, 184, 148, 0.1);
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 25px;
+  border: 1px solid var(--accent);
+}
+
+.menu-item {
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: background 0.2s, color 0.2s;
+}
+
+.menu-item.active,
+.menu-item:hover {
+  background: var(--accent);
+  color: var(--bg-dark);
+}
+
+main {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+.card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  border: 1px solid var(--border);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+h2 {
+  color: var(--accent-light);
+  margin-bottom: 15px;
+}
+
+p {
+  line-height: 1.6;
+  color: var(--text-main);
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-card);
+  color: var(--text-main);
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.results p {
+  font-size: 1.1rem;
+  margin: 8px 0;
+}
+
+.chart-container,
+.example-card canvas {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.chart-container {
+  height: 500px;
+  padding: 15px;
+}
+
+.example-card {
+  margin-bottom: 30px;
+}
+
+/* .example-card canvas { width: 100% !important; height: 300px !important; } */
+
+.chart-container {
+  height: 500px;
+  width: 100%;
+  position: relative;
+}
+
+.example-card canvas {
+  max-height: 400px;
+  width: 100% !important;
+  height: auto !important;
+}
+
+.definition {
+  background: rgba(0, 184, 148, 0.05);
+  border-left: 3px solid var(--accent);
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 6px;
+}
+
+.formula {
+  font-family: 'Courier New', monospace;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 12px;
+  margin: 15px 0;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 1.1em;
+  text-align: center;
+}
+
+.graph-explanation {
+  background: rgba(178, 190, 195, 0.05);
+  padding: 18px;
+  margin: 25px 0;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.graph-explanation h3 {
+  color: var(--accent-light);
+  margin-bottom: 12px;
+  font-size: 1.2em;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+}
+
+.graph-explanation ul {
+  padding-left: 25px;
+  margin: 15px 0;
+}
+
+.graph-explanation li {
+  margin: 10px 0;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вероятность & Удача</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <nav>
+    <h1>Вероятность & Удача</h1>
+    <div class="menu-item active" data-target="calculator">Калькулятор</div>
+    <div class="menu-item" data-target="luck-test">Тест удачи</div>
+    <div class="menu-item" data-target="examples">Типы вероятностей</div>
+  </nav>
+  <main>
+    <!-- Calculator Section -->
+    <section id="calculator" class="section active">
+        <div class="card">
+            <h2>Теория</h2>
+            <p><strong>Вероятность события P</strong> — это отношение числа благоприятных исходов k к общему числу равноправных исходов n:</p>
+            <div style="font-family:monospace; background:rgba(0,0,0,0.2); padding:8px; border-radius:4px; margin:8px 0;">
+              P = k / n
+            </div>
+            <p><strong>Удача U</strong> — дополнительный параметр от 0 до 100, который моделирует «везение».</p>
+            <p>Модифицированная вероятность с учётом удачи рассчитывается так:</p>
+            <div style="font-family:monospace; background:rgba(0,0,0,0.2); padding:8px; border-radius:4px; margin:8px 0;">
+              P<sub>U</sub> = (k / n) · (1 + U/100)
+            </div>
+            <p>При U=0 формула «стыкуется» с классической (1 + 0 = 1 → P<sub>U</sub>=k/n).</p>
+          </div>
+      <div class="card">
+        <h2>Калькулятор</h2>
+        <div class="grid-2">
+          <div>
+            <label for="favorable">k:</label>
+            <input id="favorable" type="number" min="0" value="1">
+            <label for="total">n:</label>
+            <input id="total" type="number" min="1" value="6">
+            <label for="luckRange">U: <span id="luckValue">50</span></label>
+            <input id="luckRange" type="range" min="0" max="100" value="50">
+            <p>Зелёная точка показывает текущую удачу.</p>
+          </div>
+          <div class="results">
+            <p>P = <strong id="baseProb">0.00</strong></p>
+            <p>Pᵤ = <strong id="luckProb">0.00</strong></p>
+            <div class="chart-container"><canvas id="probChart"></canvas></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- Examples Section -->
+<section id="examples" class="section">
+    <!-- Классическая вероятность -->
+    <div class="card example-card">
+      <h2>Классическая вероятность (Лапласа)</h2>
+      <div class="definition">
+        <p><strong>Определение:</strong> Вероятность события P(A) - отношение числа благоприятных исходов m к общему числу равновозможных исходов n.</p>
+        <div class="formula">
+          P(A) = <sup>m</sup>&frasl;<sub>n</sub>
+        </div>
+      </div>
+      <div class="graph-explanation">
+        <h3>Анализ графика</h3>
+        <p>Столбчатая диаграмма показывает распределение вероятностей для шестигранного кубика:</p>
+        <ul>
+          <li>Вероятность конкретного исхода: P = 1/6 ≈ 16.67%</li>
+          <li>Сумма всех вероятностей: ΣP = 1 (аксиома нормировки)</li>
+          <li>Равномерное распределение - характеристика классического подхода</li>
+        </ul>
+      </div>
+      <canvas id="chartClassical"></canvas>
+    </div>
+  
+    <!-- Частотная вероятность -->
+    <div class="card example-card">
+      <h2>Частотная вероятность</h2>
+      <div class="definition">
+        <p><strong>Определение:</strong> Предел относительной частоты события при неограниченном числе испытаний.</p>
+        <div class="formula">
+          P(A) = lim<sub>n→∞</sub> <sup>m</sup>&frasl;<sub>n</sub>
+        </div>
+      </div>
+      <div class="graph-explanation">
+        <h3>Анализ графика</h3>
+        <p>Линейный график демонстрирует закон больших чисел:</p>
+        <ul>
+          <li>При n < 50 - сильные колебания частоты</li>
+          <li>При n → 1000 частота стабилизируется около 0.5</li>
+          <li>Стандартное отклонение: σ = <sup>1</sup>&frasl;<sub>2√n</sub></li>
+        </ul>
+      </div>
+      <canvas id="chartFrequency"></canvas>
+    </div>
+  
+    <!-- Аксиоматическая вероятность -->
+    <div class="card example-card">
+      <h2>Аксиоматическая вероятность</h2>
+      <div class="definition">
+        <p><strong>Определение:</strong> Функция P: F → [0,1], удовлетворяющая аксиомам Колмогорова:</p>
+        <div class="formula">
+          1. P(A) ≥ 0<br>
+          2. P(Ω) = 1<br>
+          3. Если A∩B=∅, то P(A∪B) = P(A) + P(B)
+        </div>
+      </div>
+      <div class="graph-explanation">
+        <h3>Анализ графика</h3>
+        <p>Столбчатая диаграмма иллюстрирует аксиому аддитивности:</p>
+        <ul>
+          <li>P(A) = 0.3, P(B) = 0.4</li>
+          <li>P(A∪B) = 0.7 (для несовместных событий)</li>
+          <li>Высота третьего столбца равна сумме первых двух</li>
+        </ul>
+      </div>
+      <canvas id="chartAxiomatic"></canvas>
+    </div>
+  
+    <!-- Байесовская вероятность -->
+    <div class="card example-card">
+      <h2>Байесовская вероятность</h2>
+      <div class="definition">
+        <p><strong>Определение:</strong> Вероятность как степень уверенности, обновляемая по формуле Байеса:</p>
+        <div class="formula">
+          P(A|B) = <sup>P(B|A)·P(A)</sup>&frasl;<sub>P(B)</sub>
+        </div>
+      </div>
+      <div class="graph-explanation">
+        <h3>Анализ графика</h3>
+        <p>Кривые показывают апостериорные распределения:</p>
+        <ul>
+          <li>Beta(2,2) - равномерное априорное распределение</li>
+          <li>Beta(10,4) - после 8 успехов в 12 испытаниях</li>
+          <li>Пик смещается вправо при увеличении числа успехов</li>
+        </ul>
+      </div>
+      <canvas id="chartBayesian"></canvas>
+    </div>
+  
+    <!-- Геометрическая вероятность -->
+    <div class="card example-card">
+      <h2>Геометрическая вероятность</h2>
+      <div class="definition">
+        <p><strong>Определение:</strong> Отношение меры благоприятной области к мере всей допустимой области.</p>
+        <div class="formula">
+          P(A) = <sup>μ(A)</sup>&frasl;<sub>μ(Ω)</sub>
+        </div>
+      </div>
+      <div class="graph-explanation">
+        <h3>Анализ графика</h3>
+        <p>Столбчатая диаграмма сравнивает площади:</p>
+        <ul>
+          <li>Площадь круга: πr²</li>
+          <li>Площадь квадрата: (2r)² = 4r²</li>
+          <li>Вероятность попадания: π/4 ≈ 78.5%</li>
+        </ul>
+      </div>
+      <canvas id="chartGeometric"></canvas>
+    </div>
+  
+    <!-- Индуктивная вероятность -->
+    <div class="card example-card">
+      <h2>Индуктивная вероятность</h2>
+      <div class="definition">
+        <p><strong>Определение:</strong> Степень правдоподобия гипотезы на основе имеющихся данных.</p>
+        <div class="formula">
+          P(H|E) ∝ P(E|H)·P(H)
+        </div>
+      </div>
+      <div class="graph-explanation">
+        <h3>Анализ графика</h3>
+        <p>График показывает сходимость эмпирической частоты:</p>
+        <ul>
+          <li>Начальная высокая волатильность</li>
+          <li>Постепенная стабилизация около теоретического значения</li>
+          <li>Доверительный интервал сужается как 1/√n</li>
+        </ul>
+      </div>
+      <canvas id="chartInductive"></canvas>
+    </div>
+  </section>
+
+    <!-- Luck Test Section -->
+    <section id="luck-test" class="section">
+        <div class="card">
+          <h2>🔮 Тест на коэффициент удачи</h2>
+          <div class="luck-test-form">
+            <label>1. Введите дату рождения:</label>
+            <input type="date" id="birthdate" value="2008-08-27">
+      
+            <label>2. Дней с удачей за месяц (0-31):</label>
+            <input type="number" id="luckyDays" min="0" max="31" value="10">
+      
+            <label>3. Ощущение удачливости (0-10):</label>
+            <input type="number" id="subjectiveLuck" min="0" max="10" value="7">
+      
+            <label>4. Семья:</label>
+            <select id="family">
+              <option value="10">Полная, любящая</option>
+              <option value="5" selected>Разведённые, но тёплые</option>
+              <option value="-5">Сложная</option>
+              <option value="0">Не указано</option>
+            </select>
+      
+            <label>5. Возраст встречи с Муркой:</label>
+            <select id="murka">
+              <option value="7" selected>10-18 лет</option>
+              <option value="5">19-28 лет</option>
+              <option value="3">29+</option>
+              <option value="10">Я — Мурка</option>
+              <option value="-5">Не встретил</option>
+            </select>
+      
+            <label>6. Розыгрыши:</label>
+            <select id="lottery">
+              <option value="0">Никогда</option>
+              <option value="1">Участвовал</option>
+              <option value="7" selected>Выигрывал</option>
+            </select>
+      
+            <label>7. Контроль жизни (0-10):</label>
+            <input type="number" id="control" min="0" max="10" value="4">
+      
+            <label>8. Помощь другим:</label>
+            <select id="kindness">
+              <option value="5">Часто</option>
+              <option value="3" selected>Иногда</option>
+              <option value="0">Редко</option>
+              <option value="-3">Никогда</option>
+            </select>
+      
+            <label>9. Вера в удачу:</label>
+            <select id="belief">
+              <option value="5">Да</option>
+              <option value="3" selected>Скорее да</option>
+              <option value="0">Нейтрально</option>
+              <option value="-2">Скорее нет</option>
+              <option value="-5">Нет</option>
+            </select>
+      
+            <button onclick="calculateLuck()">Рассчитать</button>
+            <div class="result" id="result"></div>
+          </div>
+        </div>
+                <div class="card">
+            <h2>Влияние удачи на бытовые события</h2>
+            <div class="grid-2">
+                <div>
+                    <label>Уровень удачи U: <span id="luckImpactValue">0</span></label>
+                    <input type="range" id="luckImpact" min="0" max="100" value="0">
+                    <p class="hint">Измените ползунок, чтобы увидеть эффект удачи</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="realLifeChart"></canvas>
+                </div>
+            </div>
+            <div class="graph-explanation">
+                <h3>Интерпретация графиков</h3>
+                <ul>
+                    <li>Серые столбцы - базовая вероятность</li>
+                    <li>Зелёные столбцы - вероятность с учётом удачи</li>
+                    <li>Чем выше U, тем заметнее разница между столбцами</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+  </main>
+  <script src="./script.js"></script>
+</body>
+</html>
